@@ -29,7 +29,7 @@ The semantic analyzer checks the following language rules:
 
 # Usage
 Run the analyzer with a DLang source file:
-python hw3-starter.py test-hw3.dlang
+python Chakroborty-Awasthi-hw3.py test-hw3.dlang
 
 
 # Output
