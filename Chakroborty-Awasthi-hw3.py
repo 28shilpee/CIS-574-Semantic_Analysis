@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------
-# tariq-hw3.py: Starter code for DLang Semantic Analyzer
+# hw3-starter.py: Starter code for DLang Semantic Analyzer
 # Run with source file 
 # -------------------------------------------------------------------------
 import sys
