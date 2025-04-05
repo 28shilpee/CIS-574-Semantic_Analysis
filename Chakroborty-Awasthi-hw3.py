@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------
-# hw3-starter.py: Starter code for DLang Semantic Analyzer
+# chakroborty_awasthi.py: Starter code for DLang Semantic Analyzer
 # Run with source file 
 # -------------------------------------------------------------------------
 import sys
@@ -437,10 +437,11 @@ class DLangParser(Parser):
         type_second_operand = self.eval_Expr_TypeOnly(p[2])
         
         if p[1] in ["+", "-", "/", "*", "%", "<", ">", "LE", "GE", "EQ"]:
-            if not ((type_first_operand[1] == 'double' and type_second_operand[1] == 'int') or 
-                    (type_first_operand[1] == 'int' and type_second_operand[1] == 'double') or 
-                    (type_first_operand[1] == type_second_operand[1])):
-                self.semantic_error("Type mismatch between " + str(type_first_operand[1]) + " and " + str(type_second_operand[1]))
+            if(type_first_operand and type_second_operand):
+                if not ((type_first_operand[1] == 'double' and type_second_operand[1] == 'int') or 
+                        (type_first_operand[1] == 'int' and type_second_operand[1] == 'double') or 
+                        (type_first_operand[1] == type_second_operand[1])):
+                    self.semantic_error("Type mismatch between " + str(type_first_operand[1]) + " and " + str(type_second_operand[1]))
         
         if p[1] in ["AND", "OR"]:
             if not (type_first_operand[1] == type_second_operand[1] == 'bool'):
@@ -476,17 +477,18 @@ class DLangParser(Parser):
             if tab.get_type(p.IDENTIFIER) == 0:
                 self.semantic_error(p.IDENTIFIER + " not defined")
             return p
+
         
-        if tab.get_type(p.IDENTIFIER)[1] == 'double' and tab.get_type(p[2][1]) == 'int':
+        if tab.get_type(p.IDENTIFIER) == 'double' and tab.get_type(p[2][1]) == 'int':
             return p
         else:
             type_expr, val = self.eval_Expr(p[2])
             # Evaluating expression with no value setting, type checking only
-            if tab.get_type(p.IDENTIFIER)[1] == 'double' and type_expr == 'int' or tab.get_type(p.IDENTIFIER)[1] == type_expr:
+            if tab.get_type(p.IDENTIFIER) == 'double' and type_expr == 'int' or tab.get_type(p.IDENTIFIER) == type_expr:
                 if val != "NoVAL--":
                     tab.insert_value(p.IDENTIFIER, val)
             else:
-                self.semantic_error("Error : Type mismatch " + tab.get_type(p.IDENTIFIER)[1] + " can not store a " +
+                self.semantic_error("Error : Type mismatch " + str(tab.get_type(p.IDENTIFIER)) + " can not store a " +
                                     str(type_expr) + " Value")
         return p
 
